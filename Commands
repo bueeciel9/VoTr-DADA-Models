@@ -11,4 +11,8 @@ pip list
 
 
 cat requirements.txt -> show the inside of the file
+pip3 install opencv-python
+
+
+
 
