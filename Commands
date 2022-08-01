@@ -1,3 +1,5 @@
+영상 보면서 다시 복습하기!!
+
 nvidia
 
 
@@ -15,4 +17,5 @@ pip3 install opencv-python
 
 
 
+cp -r spconv/ ../VoxSeT
 
