@@ -29,3 +29,20 @@ Transformed hidden features contain information about the input set X and they a
 
 The second cross attention attends the input set to the resulting hidden features. -> O(nkd)
 
+
+Point clouds are widely distributed and have weak semantic associations in scene level, while they have strong structual details in the local region. -> Partition the scene into a voxel grid and assign a set of latent codes to each voxel.
+
+VSA is highly parallel module. operations across voxels can be vectorized.
+**scatter function**: do vectorization which is cuda kernel library that performs symmetric reduction.
+
+VSA encode the region-wise features into a hidden space using latent codes. Hidden features work as a bottleneck, through which we apply a ConvFFN to achieve more flexible and complex information update.
+
+
+
+
+
+
+
+
+
+
