@@ -9,5 +9,6 @@ padding =0
 dilation =1
 groups = 1
 bias = True,
-padding_mode = 'zeros')
+padding_mode = 'zeros'
+)
 ```
