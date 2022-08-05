@@ -39,7 +39,8 @@ VSA encode the region-wise features into a hidden space using latent codes. Hidd
 
 
 
-
+BEV feature encoding: In point cloud detection, a common phenomenon is that models using dense birds-eye-view (BEV) features [4, 5, 42] generally achieve higher recall than those using sparse point-wise features. Encode the point-wise features from the backbone into a BEV representation and apply a shallow CNN to increase the feature density. To generate BEV features, we aggregate the point-wise features within a pillar of size 0.36m×0.36m and apply a “soft-pooling” operation to produce features in
+BEV.
 
 
 
