@@ -133,17 +133,41 @@ class MLP_VSA_Layer(nn.Module):
         super(MLP_VSA_Layer, self).__init__()
         self.dim = dim
         self.k = n_latents 
+        
+        
+        # have to modify this part. I gonna modify the mlp -> two cnn layers
+        #---Original.
         self.pre_mlp = nn.Sequential(
             nn.Linear(dim, dim),
             nn.BatchNorm1d(dim,eps=1e-3, momentum=0.01),
             nn.ReLU(),
+            
             nn.Linear(dim, dim),
             nn.BatchNorm1d(dim,eps=1e-3, momentum=0.01),
             nn.ReLU(),
+            
             nn.Linear(dim, dim),
             nn.BatchNorm1d(dim,eps=1e-3, momentum=0.01),
         )
-
+        #---
+        
+        #---
+        # What I modified: 
+        self.pre_mlp = nn.Sequential(           
+            nn.Conv2d(conv_dim, conv_dim, 3, 1, 1, groups=conv_dim, bias=False), 
+            nn.BatchNorm2d(conv_dim),
+            nn.ReLU(),
+            
+            nn.Conv2d(conv_dim, conv_dim, 3, 1, 1, groups=conv_dim, bias=False), 
+            nn.BatchNorm2d(conv_dim),
+            nn.ReLU(),
+            # nn.Conv2d(conv_dim, conv_dim, 3, 1, dilation=2, padding=2, groups=conv_dim, bias=False),
+            # nn.BatchNorm2d(conv_dim),
+            # nn.ReLU(), 
+            nn.Conv2d(conv_dim, conv_dim, 1, 1, bias=False), 
+         ) 
+        #---
+        
         # the learnable latent codes can be obsorbed by the linear projection
         self.score = nn.Linear(dim, n_latents)
 
@@ -153,6 +177,8 @@ class MLP_VSA_Layer(nn.Module):
         self.conv_dim = conv_dim
         
         # conv ffn
+        
+        
         self.conv_ffn = nn.Sequential(           
             nn.Conv2d(conv_dim, conv_dim, 3, 1, 1, groups=conv_dim, bias=False), 
             nn.BatchNorm2d(conv_dim),
