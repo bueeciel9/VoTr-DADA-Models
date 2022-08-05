@@ -1,0 +1,5 @@
+VFE:
+        NAME: VoxSeT
+        INPUT_DIM: 16
+        NUM_LATENTS: [8, 8, 8, 8]
+        OUTPUT_DIM: 128
