@@ -8,3 +8,6 @@ VoTr
 
 VoxelNet
 ![image](https://user-images.githubusercontent.com/65759092/183331714-0ecf2a56-5dfa-4446-8bda-8392f3b09cf6.png)
+
+VoxSeT
+![image](https://user-images.githubusercontent.com/65759092/183331754-7e1d73f1-a87a-4bf0-a599-18360de173b4.png)
