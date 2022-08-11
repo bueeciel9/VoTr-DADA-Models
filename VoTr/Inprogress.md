@@ -66,6 +66,46 @@ Self-attention on voxels:
 ![image](https://user-images.githubusercontent.com/65759092/184199563-b8ff01fc-408e-4e10-b790-f6d0a0ee2787.png)
 
 
+**Submanifold voxel module:**
+The outputs of submanifold voxel modules are exactly at the same locations with the input non-empty voxels. -> keep the original 3D structures of inputs. 
+Two sub-layers are designed. 1st sub layer is the self-attention layer that combines all the attention mechanisms, and the 2nd is a simple feed-forward layer. Residual connection s are employed around the sub layers.
+Major difference: 
+1. Append the additional linear projection layer after the feed-forward layer for channel adjustment of voxel features.
+2. Replace layer normalization with batch normalization
+3. Remove all the dropout layers in the module, since the number of attending voxels is already small and randomly rejecting some of those voxels hampers the learning process
+
+
+Sparse voxel module:
+Extract features for the empty locations, leading to the expansion of the original non-empty space, typically required in the voxel downsampling process.
+There is no feature fi available for the empty voxels, can’t obtain the query embedding Qi from fi. 
+-> Approximation of Qi at the empty location from the attending features fj
+
+![image](https://user-images.githubusercontent.com/65759092/184211114-ea6c4585-b507-41e7-b178-a981afb686b9.png)
+
+Function can be interpolation, pooling. In this paper, the function is chosen as the maxpooling.
+Self-attention on sparse voxels:
+1)	Should cover the neighboring voxels to retrain the fine-grained 3D structure.
+2)	Should reach as far as possible to obtain a large context information
+3)	The number of attending voxels in self-attention should be small enough.
+
+
+We define (start; end; stride) as a function that returns the non-empty indices in a closed set [start; end] with the step as stride. In the 3D cases,
+for example, ((0; 0; 0), (1; 1; 1), (1; 1; 1)) searches the set {(0; 0; 0), (0; 0; 1), (0; 1; 0),  ... ,(1; 1; 1)} with 8 indices for the non-empty indices. 
+In Local Attention, given a querying voxel vi, the local attention range local(i) parameterized by Rlocal can be formulated as: where Rlocal =(1,1,1)
+
+![image](https://user-images.githubusercontent.com/65759092/184236270-2d72e3df-81c2-4e7a-a570-dccebc19dda3.png)
+
+Dilated Attention
+![image](https://user-images.githubusercontent.com/65759092/184236714-d303ff3e-17ac-436a-9de3-2c45aa8edb09.png)
+![image](https://user-images.githubusercontent.com/65759092/184236902-8963002c-99b4-4af2-9967-eea244648a7b.png)
+![image](https://user-images.githubusercontent.com/65759092/184237027-d03027db-14df-4f83-ab94-b6f02f2ef514.png)
+
+
+we gradually enlarge the querying step R(i) stride when search for the non-empty voxels which are more distant.
+we preserve more attending voxels near the query while still maintaining some attending voxels that are far away, 
+and R(i) stride > (1; 1; 1) significantly reduces the searching time and memory cost.
+
+
 
 
 
