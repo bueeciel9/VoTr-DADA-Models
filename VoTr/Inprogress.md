@@ -28,8 +28,37 @@ VoxSeT에서 나온 아이디어:
 
 직접적으로 Transformer를 voxel에 대입하면 안 좋은 이유!
 1)	Non-empty voxels are sparsely distributed in a voxel-grid.
--> Non-empty voxels only account for a small proportion of total voxels(normally non-empty voxels occupy less than 0.1% of the total voxel space).
+Non-empty voxels only account for a small proportion of total voxels(normally non-empty voxels occupy less than 0.1% of the total voxel space).
+-> Special operations should be designed to only attend to those non-empty voxels efficiently.
 
 2)	The number of non-empty voxels is still large in a scene
 -> Applying fully-connected self-attention like the standard Transformer is computationally prohibitive.
+
+Submanifold voxel module operate strictly on the no-empty voxels, to retain the original 3D geometric structure.
+Sparse voxel modules can output features at the empty locations, which is more flexible and can further enlarge the non-empty voxel space.
+
+Non-empty voxels are too numerous for self-attention, we further propose two attention mechanisms. -> 음.. 이 아이디어는 나중에 voxel focal attention을 할때도 넣어야할까?
+일단, local, dilated attention을 어떻게 수행하는지 확실히 이해하고, 여러 복셀단위들로 나누어서도 이게 실현 가능한지 한번 생각해보자.
+1.	Local attention
+Local attention focuses on the neighboring region to preserve detailed information.
+2.	Dilated Attention -> 얘 살짝 focal attention이랑 비슷하게 생각할수도? 
+Dilated attention obtains a large attention range with only a few attending voxels, by gradually increasing the search step.
+
+위 두가지 attention을 further accelerate, Fast Voxel Query which contains a GPU-based has table to efficiently store and lookup the non-empty voxels.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
