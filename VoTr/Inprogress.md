@@ -105,8 +105,7 @@ we gradually enlarge the querying step R(i) stride when search for the non-empty
 we preserve more attending voxels near the query while still maintaining some attending voxels that are far away, 
 and R(i) stride > (1; 1; 1) significantly reduces the searching time and memory cost.
 
-
-
+음.. 어쨌든 이 두 attention module로 가까운 거리도 효과적으로 하고, 먼 곧까지 잘 훑는다는게 핵심인 것 같은데.. 얘를 어떻게 적용할 수 있을까?
 
 
 
