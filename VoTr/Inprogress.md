@@ -47,10 +47,23 @@ Dilated attention obtains a large attention range with only a few attending voxe
 위 두가지 attention을 further accelerate, Fast Voxel Query which contains a GPU-based has table to efficiently store and lookup the non-empty voxels.
 
 
+![image](https://user-images.githubusercontent.com/65759092/184192968-f7f3d5a4-3d87-450b-a819-a04681130ebd.png)
+
+** Self-attention on sparse voxels:
+1.	Define a dense voxel-grid, Ndense voxels in total
+2.	Maintain those non-empty voxels with a Nsparse¬ * 3 integer indices array V and Nsparse *d corresponding feature array F,  Nsparse << Ndense
+3.	Multi-head self attention is used to build long-range relationships among non-empty voxels.
+4.	Given the querying voxel i, the attention range omega is first determined by attention mechanism, and perform multi-head attention on attending voxels j to obtain the feature.
+5.	Fi and fj are features of querying and attending voxels respectively, and vi and vj be the integer indices of querying and attending voxels.
+6.	Transform the indices vi and vj to the corresponding 3D coordinates of the real voxel centers pi and pj by p = r(v+0.5) where r is the voxel size.
+7.	Then, for a single head, compute the query, key, value embedding with the linear projection of query, key, and value. And positional encoding Epos¬ too.
+![image](https://user-images.githubusercontent.com/65759092/184199535-aaa5e83e-f796-4f85-9803-cb54a1160161.png)
 
 
+![image](https://user-images.githubusercontent.com/65759092/184199515-e34d1e8e-8683-4d09-957f-ae1319ab4cac.png)
 
-
+Self-attention on voxels:
+![image](https://user-images.githubusercontent.com/65759092/184199563-b8ff01fc-408e-4e10-b790-f6d0a0ee2787.png)
 
 
 
