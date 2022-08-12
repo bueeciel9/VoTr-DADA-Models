@@ -107,6 +107,18 @@ and R(i) stride > (1; 1; 1) significantly reduces the searching time and memory 
 
 음.. 어쨌든 이 두 attention module로 가까운 거리도 효과적으로 하고, 먼 곧까지 잘 훑는다는게 핵심인 것 같은데.. 얘를 어떻게 적용할 수 있을까?
 
+근데, 그 모든 voxel들을 다 처리를 할 수가 없다. 그래서 본 논문에서도, all the Nsparse non-empty voxels to find the matched j takes O(Nsparse) time complexity for each querying process, and it is extremely time-consuming since Nsparse is normally 90k on the Waymo Open dataset.
+
+결론은.. 위 두 모듈을 유지하면서 어떻게 Focal attention을 수행할까가 하.. 음..
+일단 VoTr에서 필요한 것: finding non-empty voxels! -> 찾은 걸 토대로 focal attention을 수행?
+
+
+
+
+
+
+
+
 
 
 
